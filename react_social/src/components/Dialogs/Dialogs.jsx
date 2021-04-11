@@ -35,6 +35,7 @@ let Dialogs = (props) => {
       <div className={s.messages}>
         {messageElem}
         <textarea
+          className={s.textarea}
           cols="100"
           rows="5"
           onChange={onNewMessageChange}
