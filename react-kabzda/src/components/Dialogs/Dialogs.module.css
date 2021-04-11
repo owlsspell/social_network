@@ -6,11 +6,16 @@
 
 .dialogsItems {
   padding: 10px;
+  border-right: 1px solid rgb(130, 175, 210);
+  min-height: 100vh;
 }
 
 .dialogsItems a {
   text-decoration: none;
-  color: white;
+  color: cornflowerblue;
+  font-size: 1.3em;
+  display: flex;
+  align-items: center;
 }
 
 .dialogsItems .active {
@@ -29,4 +34,5 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
+  margin: 5px;
 }

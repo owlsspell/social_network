@@ -28,6 +28,7 @@ const MyPosts = (props) => {
       <div>
         <div>
           <textarea
+            className={s.textarea}
             onChange={onPostChange}
             ref={newPostElem}
             value={props.newPostText}
