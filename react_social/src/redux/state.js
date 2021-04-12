@@ -1,4 +1,4 @@
-import dialogsReduser from "./dialog-reduser";
+import dialogsReduser from "./dialogs-reduser";
 import profileReduser from "./profile-reduser";
 import sidebarReduser from "./sidebar-reduser";
 
