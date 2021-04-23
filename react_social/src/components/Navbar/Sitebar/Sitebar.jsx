@@ -23,7 +23,6 @@ import s from "./Sitebar.module.css";
 // };
 
 let Sitebar = (props) => {
-  debugger;
   let friends = props.friends;
   let friendElem = friends.map((f) => <FriendItem name={f.name} img={f.img} />);
   return (

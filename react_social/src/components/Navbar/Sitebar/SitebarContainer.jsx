@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import Sitebar from "./Sitebar";
 
 const mapStateToProps = (state) => {
-  debugger;
   return {
     friends: state.sitebar.friends,
   };

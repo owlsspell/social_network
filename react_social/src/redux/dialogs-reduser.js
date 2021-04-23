@@ -41,7 +41,15 @@ let initialState = {
 };
 
 const dialogsReduser = (state = initialState, action) => {
+  let stateCopy;
+
   switch (action.type) {
+    case UPDATE_NEW_MESSAGE:
+      return {
+        ...state,
+        newMessageText: action.newMessage,
+      };
+
     case SEND_MESSAGE:
       let newMessage = {
         id: 1,
@@ -49,12 +57,12 @@ const dialogsReduser = (state = initialState, action) => {
         img:
           "https://movies4maniacs.liberty.me/wp-content/uploads/sites/1218/2015/09/avatarsucks.jpg",
       };
-      state.messages.push(newMessage);
-      state.newMessageText = "";
-      return state;
-    case UPDATE_NEW_MESSAGE:
-      state.newMessageText = action.newMessage;
-      return state;
+      return {
+        ...state,
+        messages: [...state.messages, newMessage],
+        newMessageText: "",
+      };
+
     default:
       return state;
   }
