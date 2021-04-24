@@ -24,7 +24,9 @@ import s from "./Sitebar.module.css";
 
 let Sitebar = (props) => {
   let friends = props.friends;
-  let friendElem = friends.map((f) => <FriendItem name={f.name} img={f.img} />);
+  let friendElem = friends.map((f) => (
+    <FriendItem key={f.id} name={f.name} img={f.img} />
+  ));
   return (
     <div className={s.sitebar}>
       <div className={s.title}>Friends</div>
