@@ -4,9 +4,7 @@ import s from "./Users.module.css";
 import userPhoto from "./../../assets/user.png";
 
 class Users extends React.Component {
-  constructor(props) {
-    super(props);
-
+  componentDidMount() {
     if (this.props.users.length === 0) {
       axios
         .get("https://social-network.samuraijs.com/api/1.0/users")
@@ -15,6 +13,7 @@ class Users extends React.Component {
         });
     }
   }
+
   render() {
     return (
       <div>
