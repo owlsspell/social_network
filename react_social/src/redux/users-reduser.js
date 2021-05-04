@@ -5,6 +5,7 @@ const SET_CURRENT_PAGE = "SET_CURRENT_PAGE";
 const TOTAL_USERS_COUNT = "TOTAL_USERS_COUNT";
 const INPUT_PAGE = "INPUT_PAGE";
 const UPDATE_PAGE = "UPDATE_PAGE";
+const TOGGLE_FETCHING = "TOGGLE_FETCHING";
 
 let initialState = {
   users: [
@@ -40,6 +41,7 @@ let initialState = {
   pageSize: 5,
   currentPage: 1,
   inputPage: 1,
+  isFetching: true,
 };
 
 const usersReduser = (state = initialState, action) => {
@@ -85,6 +87,9 @@ const usersReduser = (state = initialState, action) => {
     case UPDATE_PAGE: {
       return { ...state, currentPage: action.inputPage };
     }
+    case TOGGLE_FETCHING: {
+      return { ...state, isFetching: action.isFetching };
+    }
     default:
       return state;
   }
@@ -108,6 +113,10 @@ export const sendPageChangedAC = (inputPage) => ({
 export const updatePageChangedAC = (inputPage) => ({
   type: UPDATE_PAGE,
   currentPage: inputPage,
+});
+export const toggleIsFetchingAC = (isFetching) => ({
+  type: TOGGLE_FETCHING,
+  isFetching,
 });
 
 export default usersReduser;
