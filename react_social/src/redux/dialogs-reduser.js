@@ -41,8 +41,6 @@ let initialState = {
 };
 
 const dialogsReduser = (state = initialState, action) => {
-  let stateCopy;
-
   switch (action.type) {
     case UPDATE_NEW_MESSAGE:
       return {
