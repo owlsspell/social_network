@@ -16,3 +16,17 @@
   color: white;
   font-size: 2em;
 }
+
+.loginBlock {
+  margin-right: 20px;
+  margin-left: auto;
+}
+
+.loginBlock a {
+  text-decoration: none;
+  color: white;
+}
+
+.loginBlock h3 {
+  color: white;
+}
