@@ -2,6 +2,7 @@ import React from "react";
 import s from "./Users.module.css";
 import userPhoto from "./../../assets/user.png";
 import { NavLink } from "react-router-dom";
+import axios from "axios";
 
 let Users = (props) => {
   let pagesCount = Math.ceil(props.totalUserCount / props.pageSize);
@@ -73,7 +74,21 @@ let Users = (props) => {
               <button
                 className={s.follow}
                 onClick={() => {
-                  props.unfollow(u.id);
+                  axios
+                    .delete(
+                      `https://social-network.samuraijs.com/api/1.0/follow/${u.id}`,
+                      {
+                        withCredentials: true,
+                        headers: {
+                          "API-KEY": "f09c4f8a-1b7c-4807-9f50-29fcd0c6364a",
+                        },
+                      }
+                    )
+                    .then((response) => {
+                      if (response.data.resultCode === 0) {
+                        props.unfollow(u.id);
+                      }
+                    });
                 }}
               >
                 Unfollow
@@ -82,7 +97,22 @@ let Users = (props) => {
               <button
                 className={s.follow}
                 onClick={() => {
-                  props.follow(u.id);
+                  axios
+                    .post(
+                      `https://social-network.samuraijs.com/api/1.0/follow/${u.id}`,
+                      {},
+                      {
+                        withCredentials: true,
+                        headers: {
+                          "API-KEY": "f09c4f8a-1b7c-4807-9f50-29fcd0c6364a",
+                        },
+                      }
+                    )
+                    .then((response) => {
+                      if (response.data.resultCode === 0) {
+                        props.follow(u.id);
+                      }
+                    });
                 }}
               >
                 Follow
