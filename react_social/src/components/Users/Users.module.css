@@ -54,6 +54,10 @@
   font-size: 1em;
 }
 
+.follow:disabled {
+  background-color: rgb(190, 204, 214);
+}
+
 .selectedPage {
   color: blue;
   font-size: 1.3em;

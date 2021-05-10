@@ -2,7 +2,6 @@ import React from "react";
 import s from "./Users.module.css";
 import userPhoto from "./../../assets/user.png";
 import { NavLink } from "react-router-dom";
-import axios from "axios";
 
 let Users = (props) => {
   let pagesCount = Math.ceil(props.totalUserCount / props.pageSize);
@@ -72,47 +71,34 @@ let Users = (props) => {
             </div>
             {u.followed ? (
               <button
+                disabled={props.followingInProgres.some((id) => id === u.id)}
                 className={s.follow}
                 onClick={() => {
-                  axios
-                    .delete(
-                      `https://social-network.samuraijs.com/api/1.0/follow/${u.id}`,
-                      {
-                        withCredentials: true,
-                        headers: {
-                          "API-KEY": "f09c4f8a-1b7c-4807-9f50-29fcd0c6364a",
-                        },
-                      }
-                    )
-                    .then((response) => {
-                      if (response.data.resultCode === 0) {
-                        props.unfollow(u.id);
-                      }
-                    });
+                  props.unfollow(u.id);
+                  // props.toggleFollowingProgres(true, u.id);
+                  // UserAPI.deleteUsers(u.id).then((data) => {
+                  //   if (data.resultCode === 0) {
+                  //     props.unfollowSuccess(u.id);
+                  //   }
+                  //   props.toggleFollowingProgres(false, u.id);
+                  // });
                 }}
               >
                 Unfollow
               </button>
             ) : (
               <button
+                disabled={props.followingInProgres.some((id) => id === u.id)}
                 className={s.follow}
                 onClick={() => {
-                  axios
-                    .post(
-                      `https://social-network.samuraijs.com/api/1.0/follow/${u.id}`,
-                      {},
-                      {
-                        withCredentials: true,
-                        headers: {
-                          "API-KEY": "f09c4f8a-1b7c-4807-9f50-29fcd0c6364a",
-                        },
-                      }
-                    )
-                    .then((response) => {
-                      if (response.data.resultCode === 0) {
-                        props.follow(u.id);
-                      }
-                    });
+                  props.follow(u.id);
+                  // props.toggleFollowingProgres(true, u.id);
+                  // UserAPI.addUsers(u.id).then((data) => {
+                  //   if (data.resultCode === 0) {
+                  //     props.followSuccess(u.id);
+                  //   }
+                  //   props.toggleFollowingProgres(false, u.id);
+                  // });
                 }}
               >
                 Follow
