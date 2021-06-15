@@ -23,8 +23,18 @@ export const UserAPI = {
 };
 
 export const ProfileAPI = {
-  getUsers(userId = 2) {
+  getUsers(userId) {
     return instanse.get(`profile/${userId}`).then((response) => response.data);
+  },
+  getStatus(userId) {
+    return instanse
+      .get(`profile/status/${userId}`)
+      .then((response) => response.data);
+  },
+  updateStatus(status) {
+    return instanse
+      .put(`profile/status`, { status: status })
+      .then((response) => response.data);
   },
 };
 

@@ -1,13 +1,11 @@
 const SEND_MESSAGE = "SEND_MESSAGE";
-const UPDATE_NEW_MESSAGE = "UPDATE-NEW-MESSAGE";
 
 let initialState = {
   dialogs: [
     {
       id: 1,
       name: "Dimych",
-      img:
-        "https://movies4maniacs.liberty.me/wp-content/uploads/sites/1218/2015/09/avatarsucks.jpg",
+      img: "https://semantica.in/wp-content/uploads/2018/08/av-427845.png",
     },
     {
       id: 2,
@@ -27,38 +25,28 @@ let initialState = {
     {
       id: 1,
       message: "Hi",
-      img:
-        "https://movies4maniacs.liberty.me/wp-content/uploads/sites/1218/2015/09/avatarsucks.jpg",
+      img: "https://semantica.in/wp-content/uploads/2018/08/av-427845.png",
     },
     {
       id: 1,
       message: "Как дела?",
-      img:
-        "https://movies4maniacs.liberty.me/wp-content/uploads/sites/1218/2015/09/avatarsucks.jpg",
+      img: "https://semantica.in/wp-content/uploads/2018/08/av-427845.png",
     },
   ],
-  newMessageText: "",
 };
 
 const dialogsReduser = (state = initialState, action) => {
   switch (action.type) {
-    case UPDATE_NEW_MESSAGE:
-      return {
-        ...state,
-        newMessageText: action.newMessage,
-      };
-
     case SEND_MESSAGE:
       let newMessage = {
         id: 1,
-        message: state.newMessageText,
-        img:
-          "https://movies4maniacs.liberty.me/wp-content/uploads/sites/1218/2015/09/avatarsucks.jpg",
+        message: action.newMessageText,
+        img: "https://semantica.in/wp-content/uploads/2018/08/av-427845.png",
       };
       return {
         ...state,
         messages: [...state.messages, newMessage],
-        newMessageText: "",
+        // newMessageText: "",
       };
 
     default:
@@ -66,11 +54,9 @@ const dialogsReduser = (state = initialState, action) => {
   }
 };
 
-export const sendMessageTextCreater = () => ({ type: SEND_MESSAGE });
-
-export const updateNewMessageCreater = (text) => ({
-  type: UPDATE_NEW_MESSAGE,
-  newMessage: text,
+export const sendMessageTextCreater = (newMessageText) => ({
+  type: SEND_MESSAGE,
+  newMessageText,
 });
 
 export default dialogsReduser;

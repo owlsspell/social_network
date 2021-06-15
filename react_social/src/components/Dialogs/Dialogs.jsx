@@ -3,11 +3,10 @@ import s from "./Dialogs.module.css";
 import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
 import { Redirect } from "react-router-dom";
+import { Field, Form } from "react-final-form";
 
 let Dialogs = (props) => {
   let state = props.dialogsPage;
-
-  let newMessageText = state.newMessageText;
 
   let dialogElem = state.dialogs.map((dialog) => (
     <DialogItem name={dialog.name} id={dialog.id} img={dialog.img} />
@@ -17,13 +16,8 @@ let Dialogs = (props) => {
     <Message message={message.message} img={message.img} />
   ));
 
-  let onSendMessageClick = () => {
-    props.sendMessageText();
-  };
-
-  let onNewMessageChange = (event) => {
-    let text = event.target.value;
-    props.updateNewMessage(text);
+  let addNewMessage = (values) => {
+    props.sendMessageText(values.newMessageText);
   };
 
   if (!props.isAuth) {
@@ -35,16 +29,29 @@ let Dialogs = (props) => {
       <div className={s.dialogsItems}>{dialogElem}</div>
       <div className={s.messages}>
         {messageElem}
-        <textarea
-          className={s.textarea}
-          cols="100"
-          rows="5"
-          onChange={onNewMessageChange}
-          value={newMessageText}
-        />
-        <button onClick={onSendMessageClick}>Отправить сообщение</button>
+        <AddMessageForm onSubmit={addNewMessage} />
       </div>
     </div>
+  );
+};
+
+const AddMessageForm = (props) => {
+  return (
+    <Form onSubmit={props.onSubmit}>
+      {(props) => (
+        <form onSubmit={props.handleSubmit}>
+          <Field
+            component="textarea"
+            name="newMessageText"
+            className={s.textarea}
+            cols="100"
+            rows="5"
+            placeholder="Write..."
+          />
+          <button>Отправить сообщение</button>
+        </form>
+      )}
+    </Form>
   );
 };
 

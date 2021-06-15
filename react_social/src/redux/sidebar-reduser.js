@@ -3,8 +3,7 @@ let initialState = {
     {
       id: 1,
       name: "Dimych",
-      img:
-        "https://movies4maniacs.liberty.me/wp-content/uploads/sites/1218/2015/09/avatarsucks.jpg",
+      img: "https://semantica.in/wp-content/uploads/2018/08/av-427845.png",
     },
     {
       id: 2,

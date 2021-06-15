@@ -1,4 +1,5 @@
 import React from "react";
+import { Field, Form } from "react-final-form";
 import s from "./MyPosts.module.css";
 import Post from "./Post/Post";
 
@@ -7,35 +8,36 @@ const MyPosts = (props) => {
     <Post message={p.message} likesCount={p.likesCount} />
   ));
 
-  let newPostElem = React.createRef();
-
-  let onAddPost = () => {
-    props.addPost();
-  };
-
-  let onPostChange = () => {
-    let text = newPostElem.current.value;
-    props.updateNewPostText(text);
+  let onAddPost = (values) => {
+    props.addPost(values.postText);
   };
 
   return (
     <div className={s.postsBlock}>
       <h3>My posts</h3>
-      <div>
-        <div>
-          <textarea
-            className={s.textarea}
-            onChange={onPostChange}
-            ref={newPostElem}
-            value={props.newPostText}
-          />
-        </div>
-        <div>
-          <button onClick={onAddPost}>Add post</button>
-        </div>
-      </div>
+      <MyPostsText onSubmit={onAddPost} />
+
       <div className={s.posts}>{postsElem}</div>
     </div>
+  );
+};
+
+const MyPostsText = (props) => {
+  return (
+    <Form onSubmit={props.onSubmit}>
+      {(props) => (
+        <form onSubmit={props.handleSubmit}>
+          <Field
+            name="postText"
+            component="textarea"
+            className={s.textarea}
+          ></Field>
+          <div>
+            <button>Add post</button>
+          </div>
+        </form>
+      )}
+    </Form>
   );
 };
 
