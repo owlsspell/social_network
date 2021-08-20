@@ -3,7 +3,8 @@ import s from "./Dialogs.module.css";
 import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
 import { Redirect } from "react-router-dom";
-import { Field, Form } from "react-final-form";
+
+import AddMessageForm from "./AddMessageForm";
 
 let Dialogs = (props) => {
   let state = props.dialogsPage;
@@ -32,26 +33,6 @@ let Dialogs = (props) => {
         <AddMessageForm onSubmit={addNewMessage} />
       </div>
     </div>
-  );
-};
-
-const AddMessageForm = (props) => {
-  return (
-    <Form onSubmit={props.onSubmit}>
-      {(props) => (
-        <form onSubmit={props.handleSubmit}>
-          <Field
-            component="textarea"
-            name="newMessageText"
-            className={s.textarea}
-            cols="100"
-            rows="5"
-            placeholder="Write..."
-          />
-          <button>Отправить сообщение</button>
-        </form>
-      )}
-    </Form>
   );
 };
 
