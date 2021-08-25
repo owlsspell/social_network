@@ -45,7 +45,7 @@ export const authAPI = {
   login(email, password, rememberMe = false) {
     return instanse
       .post(`auth/login`, { email, password, rememberMe })
-      .then((response) => response.data);
+      .then((response) => response);
   },
   logout() {
     return instanse.delete(`auth/login`).then((response) => response.data);

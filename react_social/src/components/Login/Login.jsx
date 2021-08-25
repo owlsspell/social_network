@@ -6,18 +6,24 @@ import s from "./Login.module.css";
 import { login } from "../../redux/auth-reduser";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
+import { FORM_ERROR } from "final-form";
 
 const LoginForm = (props) => {
   // debugger;
   const onSubmit = (FormData) => {
-    console.log(FormData);
+    // console.log(FormData);
+    // debugger;
+    // return { [FORM_ERROR]: "Fail" };
     props.login(FormData.email, FormData.password, FormData.rememberMe);
+    if (!props.isAuth) {
+      return { [FORM_ERROR]: "Fail" };
+    }
   };
   return (
     <Form
       onSubmit={onSubmit}
       // validate={validate}
-      render={({ handleSubmit }) => (
+      render={({ handleSubmit, submitError }) => (
         <form onSubmit={handleSubmit} className={s.loginForm}>
           <div>
             <Field
@@ -41,6 +47,9 @@ const LoginForm = (props) => {
             <Field name="rememberMe" type="checkbox" component="input" />
             Remember me
           </div>
+          {/* {submitError === undefined ? <div>{SubmitError}</div> : ""} */}
+          {console.log(submitError)}
+
           <div>
             <button type="submit">Login</button>
           </div>
@@ -51,6 +60,7 @@ const LoginForm = (props) => {
 };
 
 const Login = (props) => {
+  // debugger;
   if (props.isAuth) {
     return <Redirect to={"/profile"} />;
   }
@@ -58,7 +68,7 @@ const Login = (props) => {
   return (
     <div className={s.header}>
       <h1>LOGIN</h1>
-      <LoginForm login={props.login} />
+      <LoginForm login={props.login} isAuth={props.isAuth} />
     </div>
   );
 };

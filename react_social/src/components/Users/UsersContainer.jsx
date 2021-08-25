@@ -13,6 +13,10 @@ import {
   toggleFollowingProgres,
   getUsers,
 } from "../../redux/users-reduser";
+import {
+  getTotalUserCount,
+  getUsersSelector,
+} from "../../redux/users-selectors";
 import Users from "./Users";
 
 class UsersContainer extends React.Component {
@@ -64,10 +68,23 @@ class UsersContainer extends React.Component {
   }
 }
 
+// const mapStateToProps = (state) => {
+//   return {
+//     users: state.usersPage.users,
+//     totalUserCount: state.usersPage.totalUserCount,
+//     pageSize: state.usersPage.pageSize,
+//     currentPage: state.usersPage.currentPage,
+//     setTotalUsersCount: state.usersPage.setTotalUsersCount,
+//     inputPage: state.usersPage.inputPage,
+//     isFetching: state.usersPage.isFetching,
+//     followingInProgres: state.usersPage.followingInProgres,
+//   };
+// };
+
 const mapStateToProps = (state) => {
   return {
-    users: state.usersPage.users,
-    totalUserCount: state.usersPage.totalUserCount,
+    users: getUsersSelector(state),
+    totalUserCount: getTotalUserCount(state),
     pageSize: state.usersPage.pageSize,
     currentPage: state.usersPage.currentPage,
     setTotalUsersCount: state.usersPage.setTotalUsersCount,
@@ -107,7 +124,7 @@ const mapStateToProps = (state) => {
 };*/
 
 export default compose(
-  withAuthRedirect,
+  // withAuthRedirect,
   connect(mapStateToProps, {
     follow,
     unfollow,

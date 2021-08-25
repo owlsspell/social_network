@@ -1,7 +1,8 @@
 import styles from "./FormsControl.module.css";
 
 const FormControl = ({ input, meta, FormType, ...props }) => {
-  //   debugger;
+  // debugger;
+  // console.log(meta.submitError);
   const hasError = meta.touched && meta.error;
   return (
     <div className={styles.formControl + " " + (hasError ? styles.error : "")}>
