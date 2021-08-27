@@ -16,6 +16,7 @@ import {
 import {
   getTotalUserCount,
   getUsersSelector,
+  getUsersSuperSelector,
 } from "../../redux/users-selectors";
 import Users from "./Users";
 
@@ -83,7 +84,7 @@ class UsersContainer extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    users: getUsersSelector(state),
+    users: getUsersSuperSelector(state),
     totalUserCount: getTotalUserCount(state),
     pageSize: state.usersPage.pageSize,
     currentPage: state.usersPage.currentPage,
