@@ -22,7 +22,6 @@ class App extends React.Component {
     }
 
     return (
-      <BrowserRouter>
         <div className="app-wrapper">
           <HeaderContainer />
           <Navbar />
@@ -36,7 +35,6 @@ class App extends React.Component {
             <Route path="/login" render={() => <Login />} />
           </div>
         </div>
-      </BrowserRouter>
     );
   }
 }

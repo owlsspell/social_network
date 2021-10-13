@@ -147,25 +147,22 @@ export const getUsers = (currentPage, pageSize) => (dispatch) => {
   });
 };
 
-export const follow = (userId) => (dispatch) => {
+export const followUnfollowFlow = async (dispatch, userId,apiMethod,actionCreator) => {
   dispatch(toggleFollowingProgres(true, userId));
-  UserAPI.addUsers(userId).then((data) => {
-    if (data.resultCode === 0) {
-      dispatch(followSuccess(userId));
-    }
-    dispatch(toggleFollowingProgres(false, userId));
-  });
+  let data = await apiMethod(userId);
+  if (data.resultCode === 0) {
+    dispatch(actionCreator(userId));
+  }
+  dispatch(toggleFollowingProgres(false, userId));
+ 
 };
 
-export const unfollow = (userId) => (dispatch) => {
-  dispatch(toggleFollowingProgres(true, userId));
+export const follow = (userId) => async (dispatch) => {
+  followUnfollowFlow(dispatch, userId,UserAPI.addUsers.bind(UserAPI),followSuccess)
+};
 
-  UserAPI.deleteUsers(userId).then((data) => {
-    if (data.resultCode === 0) {
-      dispatch(unfollowSuccess(userId));
-    }
-    dispatch(toggleFollowingProgres(false, userId));
-  });
+export const unfollow = (userId) => async(dispatch) => {
+  followUnfollowFlow(dispatch, userId,UserAPI.deleteUsers.bind(UserAPI),unfollowSuccess)
 };
 
 export default usersReduser;
