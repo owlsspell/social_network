@@ -58,34 +58,3 @@
   background-color: rgb(190, 204, 214);
 }
 
-.selectedPage {
-  color: blue;
-  font-size: 1.3em;
-}
-
-.pageContainer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 10px;
-}
-
-.buttonPage button {
-  margin: 5px;
-  background-color: rgb(130, 175, 210);
-  border: none;
-  padding: 5px;
-  min-width: 40px;
-}
-
-.input {
-  width: 50px;
-  padding: 5px;
-}
-
-.buttonInput {
-  margin: 5px;
-  border-color: rgb(130, 175, 210);
-  padding: 5px;
-  min-width: 40px;
-}

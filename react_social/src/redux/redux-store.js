@@ -6,7 +6,7 @@ import authReduser from "./auth-reduser";
 import thunkMiddleware from "redux-thunk";
 import appReduser from "./app-reduser";
 
-const { createStore, combineReducers, applyMiddleware } = require("redux");
+const { createStore, combineReducers, applyMiddleware, compose } = require("redux");
 
 let reducers = combineReducers({
   profilePage: profileReduser,
@@ -17,8 +17,11 @@ let reducers = combineReducers({
   app: appReduser,
 });
 
-let store = createStore(reducers, applyMiddleware(thunkMiddleware));
+// let store = createStore(reducers, applyMiddleware(thunkMiddleware));
 
-window.store = store;
+ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+ const store = createStore(reducers, composeEnhancers(applyMiddleware(thunkMiddleware)))
+
+window.__store__ = store;
 
 export default store;
