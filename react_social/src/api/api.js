@@ -40,7 +40,7 @@ export const ProfileAPI = {
 
 export const authAPI = {
   auth() {
-    // return instanse.get(`auth/me`).then((response) => response.data);
+    return instanse.get(`auth/me`).then((response) => response.data);
   },
   login(email, password, rememberMe = false) {
     return instanse
