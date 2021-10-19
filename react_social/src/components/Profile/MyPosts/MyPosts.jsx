@@ -10,8 +10,8 @@ import s from "./MyPosts.module.css";
 import Post from "./Post/Post";
 
 const MyPosts = (props) => {
-  let postsElem = props.posts.map((p) => (
-    <Post message={p.message} likesCount={p.likesCount} />
+  let postsElem = props.posts.map((p,id) => (
+    <Post key={id} message={p.message} likesCount={p.likesCount} />
   ));
 
   let onAddPost = (values) => {
