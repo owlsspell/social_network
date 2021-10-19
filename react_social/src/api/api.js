@@ -36,18 +36,43 @@ export const ProfileAPI = {
       .put(`profile/status`, { status: status })
       .then((response) => response.data);
   },
+  savePhoto(photoFile){
+    const formData = new FormData();
+    formData.append("image", photoFile);
+    return instanse
+    .put(`profile/photo`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    })
+    .then((response) => response.data);
+  },
+  saveProfile(profile){
+    return instanse
+    .put(`profile`, profile)
+    .then((response) => response.data);
+  }
 };
 
 export const authAPI = {
   auth() {
     return instanse.get(`auth/me`).then((response) => response.data);
   },
-  login(email, password, rememberMe = false) {
+  login(email, password, rememberMe = false,captcha=null) {
+    // debugger
     return instanse
-      .post(`auth/login`, { email, password, rememberMe })
+      .post(`auth/login`, { email, password, rememberMe ,captcha })
       .then((response) => response);
   },
   logout() {
     return instanse.delete(`auth/login`).then((response) => response.data);
   },
+};
+
+export const securityAPI = {
+  
+  getCaptchaUrl() {
+    return instanse.get(`security/get-captcha-url`).then((response) => response)
+  },
+  
 };

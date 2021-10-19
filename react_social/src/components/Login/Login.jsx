@@ -9,17 +9,18 @@ import { Redirect } from "react-router-dom";
 import { FORM_ERROR } from "final-form";
 
 const LoginForm = (props) => {
-  // debugger;
+  // debugger
   const onSubmit = (FormData) => {
     // console.log(FormData);
     // debugger;
     // return { [FORM_ERROR]: "Fail" };
-    props.login(FormData.email, FormData.password, FormData.rememberMe);
+    props.login(FormData.email, FormData.password, FormData.rememberMe, FormData.captcha);
     if (!props.isAuth) {
       return { [FORM_ERROR]: "Fail" };
     }
   };
   return (
+    <>
     <Form
       onSubmit={onSubmit}
       // validate={validate}
@@ -49,13 +50,22 @@ const LoginForm = (props) => {
           </div>
           {/* {submitError === undefined ? <div>{SubmitError}</div> : ""} */}
           {console.log(submitError)}
-
           <div>
             <button type="submit">Login</button>
+        {props.captchaUrl && <img src={props.captchaUrl}/>}
+        {props.captchaUrl && <Field name="captcha"
+              type="text"
+              placeholder="captcha"
+              component={Input}
+              validate={required}
+               />}
+          
+
           </div>
         </form>
       )}
     ></Form>
+</>
   );
 };
 
@@ -68,13 +78,14 @@ const Login = (props) => {
   return (
     <div className={s.header}>
       <h1>LOGIN</h1>
-      <LoginForm login={props.login} isAuth={props.isAuth} />
+      <LoginForm login={props.login} isAuth={props.isAuth} captchaUrl={props.captchaUrl}/>
     </div>
   );
 };
 
 const mapStateToProps = (state) => ({
   isAuth: state.auth.isAuth,
+  captchaUrl: state.auth.captchaUrl,
 });
 
 export default connect(mapStateToProps, { login })(Login);

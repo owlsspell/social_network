@@ -1,5 +1,5 @@
 import React, { Suspense } from "react";
-import { BrowserRouter, Route, withRouter } from "react-router-dom";
+import { BrowserRouter, HashRouter, Route, withRouter } from "react-router-dom";
 import "./App.css";
 // import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
@@ -58,7 +58,7 @@ const AppContainer = compose(
 
 
 const SocialApp = (props) => {
-  return     (<BrowserRouter basename={process.env.PUBLIC_URL} >
+  return     (<BrowserRouter basename={process.env.USERNAME}  >
   <Provider store={store}>
     <AppContainer />
   </Provider>

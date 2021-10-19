@@ -1,24 +1,28 @@
 import { FORM_ERROR } from "final-form";
-import { authAPI } from "../api/api";
+import { authAPI, securityAPI } from "../api/api";
 // import { stopSubmit } from "final-form";
 
 const SET_USER_DATA = "SET_USER_DATA";
+const GET_CAPTCHA_URL_SUCCESS = "GET_CAPTCHA_URL_SUCCESS";
 
 let initialState = {
   id: null,
   email: null,
   login: null,
   isAuth: false,
+  captchaUrl: null,
 };
 
 const authReduser = (state = initialState, action) => {
   switch (action.type) {
-    case SET_USER_DATA: {
+    
+    case SET_USER_DATA: 
+    case GET_CAPTCHA_URL_SUCCESS:
       return {
         ...state,
         ...action.payload,
       };
-    }
+    
     default:
       return state;
   }
@@ -29,6 +33,12 @@ export const setAuthUserData = (id, email, login, isAuth) => ({
   payload: { id, email, login, isAuth },
 });
 
+export const getCaptchaUrlSucces = (captchaUrl) => 
+  ({
+  type: GET_CAPTCHA_URL_SUCCESS,
+  payload:{captchaUrl}
+})
+
 export const getAuthUserData = () => (dispatch) => {
   return authAPI.auth().then((data) => {
     if (data.resultCode === 0) {
@@ -37,15 +47,18 @@ export const getAuthUserData = () => (dispatch) => {
     }
   });
 };
-export const login = (email, password, rememberMe) => (dispatch) => {
+export const login = (email, password, rememberMe, captcha) => (dispatch) => {
   // return dispatch({ [FORM_ERROR]: "dsf" });
 
-  authAPI.login(email, password, rememberMe).then((response) => {
+  authAPI.login(email, password, rememberMe,captcha).then((response) => {
     console.log(response);
     if (response.data.resultCode === 0) {
       // debugger;
       // let { id, email, login } = response.data.data;
       dispatch(getAuthUserData());
+    }
+    else if (response.data.resultCode ===10){
+      dispatch(getCaptchaUrl())
     }
     // if (response.data.resultCode === 1) {
     // FORM_ERROR = [response.data.messages];
@@ -63,6 +76,11 @@ export const logout = (email, password, rememberMe) => (dispatch) => {
       dispatch(setAuthUserData(null, null, null, false));
     }
   });
+};
+export const getCaptchaUrl =  () => async (dispatch) => {
+  const response = await securityAPI.getCaptchaUrl()
+  const captchaUrl = response.data.url
+  dispatch(getCaptchaUrlSucces(captchaUrl))
 };
 
 // export const follow = (userId) => (dispatch) => {
